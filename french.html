@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Learning - Revise any French in clcscp user interface</title>
+  <!--
+This is for you mr messer :)
+
+We're no strangers to love
+You know the rules and so do I
+A full commitment's what I'm thinkin' of
+You wouldn't get this from any other guy
+I just wanna tell you how I'm feeling
+Gotta make you understand
+Never gonna give you up, never gonna let you down
+Never gonna run around and desert you
+Never gonna make you cry, never gonna say goodbye
+Never gonna tell a lie and hurt you
+We've known each other for so long
+Your heart's been aching, but you're too shy to say it
+Inside, we both know what's been going on
+We know the game and we're gonna play it
+And if you ask me how I'm feeling
+Don't tell me you're too blind to see
+Never gonna give you up, never gonna let you down
+Never gonna run around and desert you
+Never gonna make you cry, never gonna say goodbye
+Never gonna tell a lie and hurt you
+Never gonna give you up, never gonna let you down
+Never gonna run around and desert you
+Never gonna make you cry, never gonna say goodbye
+Never gonna tell a lie and hurt you
+We've known each other for so long
+Your heart's been aching, but you're too shy to say it
+Inside, we both know what's been going on
+We know the game and we're gonna play it
+I just wanna tell you how I'm feeling
+Gotta make you understand
+Never gonna give you up, never gonna let you down
+Never gonna run around and desert you
+Never gonna make you cry, never gonna say goodbye
+Never gonna tell a lie and hurt you
+Never gonna give you up, never gonna let you down
+Never gonna run around and desert you
+Never gonna make you cry, never gonna say goodbye
+Never gonna tell a lie and hurt you
+Never gonna give you up, never gonna let you down
+Never gonna run around and desert you
+Never gonna make you cry, never gonna say goodbye
+Never gonna tell a lie and hurt you-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .top-navbar {
+            background-color: #1a4e8e;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu-icon {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .header {
+            background-color: #a83232;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .header .book-info {
+            font-size: 18px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .story {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .story p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+            line-height: 1.8;
+        }
+        
+        .story h2 {
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .vocab {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        
+        .vocab-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .latin-word {
+            color: #a83232;
+            font-weight: bold;
+            margin-right: 15px;
+            min-width: 60px;
+        }
+        
+        .translation {
+            color: #333;
+        }
+        
+        .highlighted {
+            color: #a83232;
+            font-weight: bold;
+        }
+        
+        .normal {
+            color: black;
+            font-weight: normal;
+        }
+        
+        .normal:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            grid-template-rows: repeat(3, auto);
+            gap: 5px;
+            width: fit-content;
+        }
+        
+        .control-button {
+            background-color: #1a4e8e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .control-button:hover {
+            background-color: #123a6a;
+        }
+        
+        #upBtn {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        
+        #leftBtn {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        #counter-display {
+            grid-column: 2;
+            grid-row: 2;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        #rightBtn {
+            grid-column: 3;
+            grid-row: 2;
+        }
+        
+        #downBtn {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        
+        .word-info {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .navigation-info {
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .active-paragraph {
+            background-color: rgba(240, 240, 240, 0.5);
+            padding: 5px;
+            border-radius: 4px;
+        }
+        
+        .import-section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .import-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .import-section textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .import-section input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .import-section button {
+            background-color: #a83232;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .import-section button:hover {
+            background-color: #872828;
+        }
+        
+        .meaning-editor {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .meaning-editor input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .meaning-editor button {
+            background-color: #1a4e8e;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        .meaning-editor button:hover {
+            background-color: #123a6a;
+        }
+        
+        .meaning-editor button.cancel {
+            background-color: #666;
+        }
+        
+        .meaning-editor button.cancel:hover {
+            background-color: #444;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+        }
+        
+        .instructions {
+            padding: 15px;
+            background-color: #e6f7ff;
+            border-left: 4px solid #1a4e8e;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-navbar" style="display: none">
+        <span class="menu-icon">☰</span>
+        <button id="import-toggle" class="control-button">Import Text</button>
+    </div>
+    
+    <div class="header">
+        <h1>EXPLORE THE French</h1>
+        <div class="book-info">French User Interface explorer</div>
+    </div>
+    
+    <div class="content">
+        <div class="import-section" id="import-section" style="display: block;">
+            <h3>Import Your Own French Text</h3>
+            <div class="instructions">
+                <p>Paste your French/English text below. Each paragraph should be separated by a blank line.</p>
+                <p>After importing, you can click on any word to find its meaning (works on French and English).</p>
+            </div>
+            <textarea id="import-text" placeholder="Paste your French/English text here..."></textarea>
+            <input type="text" id="title-input" placeholder="Enter a title for your text (optional)">
+            <button id="process-text">Import Text</button>
+        </div>
+        
+        <div class="story">
+            <h2 id="story-title">Cerberus</h2>
+            
+            <div class="controls" style="display: none">
+                <button class="control-button" id="upBtn">▲</button>
+                <button class="control-button" id="leftBtn">◄</button>
+                <div id="counter-display">
+                    <span id="counter">Word 1 of 35</span>
+                    <br>
+                    <span id="paragraph-counter">Paragraph 1 of 2</span>
+                </div>
+                <button class="control-button" id="rightBtn">►</button>
+                <button class="control-button" id="downBtn">▼</button>
+            </div>
+            
+            <div class="navigation-info" style="display: none">
+                ◄► Navigate between words | ▲▼ Navigate between paragraphs | Click any word to highlight
+            </div>
+            
+            <div id="text-container">
+                <p id="story-text-1" class="paragraph active-paragraph">
+                    <span class="word" data-meaning="Caecilius">this</span> 
+                    <span class="word" data-meaning="is">is</span> 
+                    <span class="word" data-meaning="in">a</span> 
+                    <span class="word" data-meaning="garden">example</span>. 
+                    <span class="word" data-meaning="Caecilius">text</span> 
+                    <span class="word" data-meaning="in">purificateurs</span> 
+                    <span class="word" data-meaning="garden">you</span> 
+                    <span class="word" data-meaning="sits">can</span>. 
+                    <span class="word" data-meaning="slave">scientifique</span> 
+                    <span class="word" data-meaning="is">est</span> 
+                </p>
+                
+                <p id="story-text-2" class="paragraph">
+                </p>
+            </div>
+            
+        </div>
+        
+        <div class="vocab">
+            <div class="vocab-item">
+              <iframe id="iframe" height="300" style="position: sticky" width="100%" title="Iframe Example"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Meaning editor popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="meaning-editor" id="meaning-editor">
+        <h4>Edit Word Meaning</h4>
+        <p id="editing-word" class="latin-word"></p>
+        <input type="text" id="meaning-input" placeholder="Enter meaning">
+        <div>
+            <button id="save-meaning">Save</button>
+            <button id="cancel-meaning" class="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all paragraphs
+            const paragraphs = document.querySelectorAll('.paragraph');
+            const totalParagraphs = paragraphs.length;
+            
+            // Initialize with paragraph 1
+            let currentParagraph = 0;
+            var iframe = document.getElementById("iframe")
+            // Get controls
+            const leftBtn = document.getElementById('leftBtn');
+            const rightBtn = document.getElementById('rightBtn');
+            const upBtn = document.getElementById('upBtn');
+            const downBtn = document.getElementById('downBtn');
+            const counter = document.getElementById('counter');
+            const paragraphCounter = document.getElementById('paragraph-counter');
+            
+            // Get vocabulary display elements
+            const vocabWord = document.getElementById('vocab-word');
+            const vocabTranslation = document.getElementById('vocab-translation');
+            const currentWord = document.getElementById('current-word');
+            const currentTranslation = document.getElementById('current-translation');
+            
+            // Import elements
+            const importToggle = document.getElementById('import-toggle');
+            const importSection = document.getElementById('import-section');
+            const importText = document.getElementById('import-text');
+            const titleInput = document.getElementById('title-input');
+            const processTextBtn = document.getElementById('process-text');
+            const storyTitle = document.getElementById('story-title');
+            const textContainer = document.getElementById('text-container');
+            
+            // Meaning editor elements
+            const overlay = document.getElementById('overlay');
+            const meaningEditor = document.getElementById('meaning-editor');
+            const editingWord = document.getElementById('editing-word');
+            const meaningInput = document.getElementById('meaning-input');
+            const saveMeaningBtn = document.getElementById('save-meaning');
+            const cancelMeaningBtn = document.getElementById('cancel-meaning');
+            
+            // Initialize word tracking
+            let currentWordIndex = 0;
+            let currentWordElement = null;
+            
+            // Get all words in the current paragraph
+            let wordsInCurrentParagraph = paragraphs[currentParagraph].querySelectorAll('.word');
+            let totalWordsInCurrentParagraph = wordsInCurrentParagraph.length;
+            
+            // Initialize - highlight first word
+            highlightWord(wordsInCurrentParagraph[currentWordIndex]);
+            updateCounters();
+            
+        
+            processTextBtn.addEventListener('click', function() {
+                const text = importText.value.trim();
+                if (!text) {
+                    alert('Please enter some text to import.');
+                    return;
+                }
+                
+                // Clear existing content
+                textContainer.innerHTML = '';
+                
+                // Update title if provided
+                const title = titleInput.value.trim();
+                if (title) {
+                    storyTitle.textContent = title;
+                }
+                
+                // Process text paragraphs
+                const paragraphs = text.split(/\n\s*\n/);
+                paragraphs.forEach((paragraph, index) => {
+                    const p = document.createElement('p');
+                    p.className = 'paragraph' + (index === 0 ? ' active-paragraph' : '');
+                    p.id = 'story-text-' + (index + 1);
+                    
+                    // Split the paragraph into words and punctuation
+                    const words = paragraph.split(/(\s+|[.,:;!?])/);
+                    
+                    words.forEach(word => {
+                        if (word.trim()) {
+                            if (/^[.,:;!?]$/.test(word)) {
+                                // This is punctuation, append it to the previous element
+                                p.appendChild(document.createTextNode(word));
+                            } else if (/^\s+$/.test(word)) {
+                                // This is whitespace
+                                p.appendChild(document.createTextNode(word));
+                            } else {
+                                // This is a word
+                                const span = document.createElement('span');
+                                span.className = 'word';
+                                span.textContent = word + ' ';
+                                span.setAttribute('data-meaning', ''); // Empty meaning by default
+                                span.addEventListener('click', function() {
+                                    highlightWord(this);
+                                    showMeaningEditor(this);
+                                });
+                                p.appendChild(span);
+                            }
+                        }
+                    });
+                    
+                    textContainer.appendChild(p);
+                });
+                
+                // Reset state
+                currentParagraph = 0;
+                updateParagraphReferences();
+                currentWordIndex = 0;
+                
+                // Highlight first word of first paragraph
+                if (wordsInCurrentParagraph.length > 0) {
+                    highlightWord(wordsInCurrentParagraph[0]);
+                }
+                
+                updateCounters();
+                
+                // Hide import section after processing
+                importSection.style.display = 'none';
+            });
+            cancelMeaningBtn.addEventListener('click', function() {
+                // Hide editor without saving
+                overlay.style.display = 'none';
+                meaningEditor.style.display = 'none';
+            });
+            
+            // Button event listeners
+            rightBtn.addEventListener('click', function() {
+                if (currentWordIndex < totalWordsInCurrentParagraph - 1) {
+                    currentWordIndex++;
+                    highlightWord(wordsInCurrentParagraph[currentWordIndex]);
+                    updateCounters();
+                }
+            });
+            
+            leftBtn.addEventListener('click', function() {
+                if (currentWordIndex > 0) {
+                    currentWordIndex--;
+                    highlightWord(wordsInCurrentParagraph[currentWordIndex]);
+                    updateCounters();
+                }
+            });
+            
+            // Add click event to all words
+            document.querySelectorAll('.word').forEach(word => {
+                word.addEventListener('click', function() {
+                    // Find the paragraph this word belongs to
+                    const parentParagraph = this.closest('.paragraph');
+                    
+                    // Find the index of this paragraph
+                    const paragraphIndex = Array.from(paragraphs).indexOf(parentParagraph);
+                    
+                    // If the paragraph is different, switch to it
+                    if (paragraphIndex !== currentParagraph) {
+                        paragraphs[currentParagraph].classList.remove('active-paragraph');
+                        currentParagraph = paragraphIndex;
+                        paragraphs[currentParagraph].classList.add('active-paragraph');
+                        
+                        updateParagraphReferences();
+                    }
+                    
+                    // Find the index of this word in the current paragraph
+                    currentWordIndex = Array.from(wordsInCurrentParagraph).indexOf(this);
+                    
+                    highlightWord(this);
+                    updateCounters();
+                });
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(event) {
+                switch(event.key) {
+                    case 'ArrowRight':
+                        rightBtn.click();
+                        break;
+                    case 'ArrowLeft':
+                        leftBtn.click();
+                        break;
+                }
+            });
+            
+            function highlightWord(wordElement) {
+                // Reset all words in the current paragraph
+                wordsInCurrentParagraph.forEach(word => {
+                    word.classList.remove('highlighted');
+                    word.classList.add('normal');
+                });
+                
+                // Highlight current word
+                wordElement.classList.remove('normal');
+                wordElement.classList.add('highlighted');
+                
+                // Update word info
+                const word = wordElement.textContent.trim();
+                const meaning = wordElement.getAttribute('data-meaning');
+                
+                //currentWord.textContent = word;
+               // currentTranslation.textContent = meaning || '';
+              iframe.src =`https://proxytest.vjiang888.workers.dev/?url=https://www.frenchdictionary.com/translate/${word}`
+                //vocabWord.textContent = word;
+                //vocabTranslation.textContent = meaning || '';
+            }
+            
+            function updateParagraphReferences() {
+                // Update active paragraphs variable
+                const allParagraphs = document.querySelectorAll('.paragraph');
+                wordsInCurrentParagraph = allParagraphs[currentParagraph].querySelectorAll('.word');
+                totalWordsInCurrentParagraph = wordsInCurrentParagraph.length;
+            }
+            
+            function updateCounters() {
+                counter.textContent = `Word ${currentWordIndex + 1} of ${totalWordsInCurrentParagraph}`;
+                
+                // Get updated count of paragraphs
+                const allParagraphs = document.querySelectorAll('.paragraph');
+                paragraphCounter.textContent = `Paragraph ${currentParagraph + 1} of ${allParagraphs.length}`;
+            }
+        });
+    </script>
+</body>
+</html>
